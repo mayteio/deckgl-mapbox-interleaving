@@ -105,23 +105,25 @@ export const DeckGLMapboxMap = ({
       width={width}
       {...props}
     >
-      <StaticMap
-        height={height}
-        gl={gl && layers.length ? gl : undefined}
-        mapboxApiAccessToken={
-          mapboxToken || process.env.REACT_APP_MAPBOX_API_ACCESS_TOKEN
-        }
-        mapStyle={mapStyle}
-        onLoad={(e) =>
-          e.target.on(
-            "load",
-            () => staticMapProps.onLoad && staticMapProps.onLoad(e)
-          )
-        }
-        width={width}
-      >
-        {children}
-      </StaticMap>
+      {gl && (
+        <StaticMap
+          height={height}
+          gl={gl}
+          mapboxApiAccessToken={
+            mapboxToken || process.env.REACT_APP_MAPBOX_API_ACCESS_TOKEN
+          }
+          mapStyle={mapStyle}
+          onLoad={(e) =>
+            e.target.on(
+              "load",
+              () => staticMapProps.onLoad && staticMapProps.onLoad(e)
+            )
+          }
+          width={width}
+        >
+          {children}
+        </StaticMap>
+      )}
     </DeckGL>
   );
 };
