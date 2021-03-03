@@ -12,6 +12,12 @@ import { useMapbox } from "./MapboxProvider";
 import { useViewport, useUpdateViewport } from "./ViewportProvider";
 import { DECKGL_LAYER_PREFIX } from "./constants";
 
+// fix for interleaving in production issues
+// see https://github.com/visgl/react-map-gl/issues/1266#issuecomment-758139857
+import mapboxgl from "mapbox-gl";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+
 /**
  * A component for displaying DeckGL & Mapbox together with ease.
  * @description use the hooks `useDeckGL` and `useMapbox` or pass any children to create visualisations.
